@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Booking Manager</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Poppins', sans-serif; }
+        body { background: #f4f7fa; color: #1a1a1a; padding: 24px; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 44px; height: 44px; background: #0086d4; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; }
+        .logo-text { font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
+        .logo-text .b { color: #0068b0; }
+        .logo-text .m { color: #50bcee; }
+        .user { display: flex; align-items: center; gap: 10px; color: #555; font-size: 14px; }
+
+        h1 { font-size: 28px; color: #0068b0; margin-bottom: 6px; }
+        .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 28px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: white; border-radius: 14px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #0086d4; }
+        .stat-card.green { border-color: #00C896; }
+        .stat-card.orange { border-color: #FF6B35; }
+        .stat-card.yellow { border-color: #FFD23F; }
+        .stat-label { font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-value { font-size: 32px; font-weight: 800; color: #0068b0; margin-bottom: 6px; }
+        .stat-change { font-size: 13px; font-weight: 600; }
+        .stat-change.up { color: #00C896; }
+        .stat-change.down { color: #FF6B35; }
+
+        .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 32px; }
+        @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+        .panel { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .panel h2 { font-size: 16px; color: #0068b0; margin-bottom: 18px; }
+
+        .chart { display: flex; align-items: flex-end; gap: 12px; height: 220px; padding-top: 10px; }
+        .bar { flex: 1; background: linear-gradient(180deg, #50bcee 0%, #0086d4 100%); border-radius: 6px 6px 0 0; position: relative; transition: opacity 0.2s; }
+        .bar:hover { opacity: 0.85; }
+        .bar-label { position: absolute; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 11px; color: #6b7280; }
+
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f2f5; font-size: 14px; }
+        .list-item:last-child { border-bottom: none; }
+        .badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+        .badge.green { background: #e6f9f3; color: #00C896; }
+        .badge.orange { background: #fff0e8; color: #FF6B35; }
+        .badge.blue { background: #e0f2fb; color: #0086d4; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px 8px; font-size: 12px; color: #6b7280; text-transform: uppercase; border-bottom: 2px solid #f0f2f5; }
+        td { padding: 14px 8px; font-size: 14px; border-bottom: 1px solid #f4f7fa; }
+
+        .footer { text-align: center; color: #9ca3af; font-size: 12px; margin-top: 24px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">B</div>
+            <div class="logo-text"><span class="b">BOOKING</span><span class="m">MANAGER</span></div>
+        </div>
+        <div class="user">Hola, Admin</div>
+    </div>
+
+    <h1>Dashboard General</h1>
+    <p class="subtitle">Resumen de actividad - Mayo 2026</p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Reservas Totales</div>
+            <div class="stat-value">1,284</div>
+            <div class="stat-change up">+12.4% vs mes anterior</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Ingresos</div>
+            <div class="stat-value">$48.2M</div>
+            <div class="stat-change up">+8.7% vs mes anterior</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-label">Tasa Conversión</div>
+            <div class="stat-value">23.5%</div>
+            <div class="stat-change down">-1.2% vs mes anterior</div>
+        </div>
+        <div class="stat-card yellow">
+            <div class="stat-label">Usuarios Activos</div>
+            <div class="stat-value">3,421</div>
+            <div class="stat-change up">+5.3% vs mes anterior</div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="panel">
+            <h2>Reservas por Mes</h2>
+            <div class="chart">
+                <div class="bar" style="height: 45%;"><div class="bar-label">Ene</div></div>
+                <div class="bar" style="height: 60%;"><div class="bar-label">Feb</div></div>
+                <div class="bar" style="height: 55%;"><div class="bar-label">Mar</div></div>
+                <div class="bar" style="height: 75%;"><div class="bar-label">Abr</div></div>
+                <div class="bar" style="height: 90%;"><div class="bar-label">May</div></div>
+                <div class="bar" style="height: 70%;"><div class="bar-label">Jun</div></div>
+                <div class="bar" style="height: 85%;"><div class="bar-label">Jul</div></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Top Experiencias</h2>
+            <div class="list-item">
+                <span>Tour Cartagena</span>
+                <span class="badge green">324</span>
+            </div>
+            <div class="list-item">
+                <span>Eje Cafetero</span>
+                <span class="badge green">287</span>
+            </div>
+            <div class="list-item">
+                <span>Tayrona Trek</span>
+                <span class="badge blue">198</span>
+            </div>
+            <div class="list-item">
+                <span>San Andrés Pack</span>
+                <span class="badge blue">156</span>
+            </div>
+            <div class="list-item">
+                <span>Caño Cristales</span>
+                <span class="badge orange">98</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Reservas Recientes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Experiencia</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#R-2841</td>
+                    <td>María González</td>
+                    <td>Tour Cartagena</td>
+                    <td>2026-05-21</td>
+                    <td>$450.000</td>
+                    <td><span class="badge green">Confirmada</span></td>
+                </tr>
+                <tr>
+                    <td>#R-2840</td>
+                    <td>Carlos Ramírez</td>
+                    <td>Eje Cafetero</td>
+                    <td>2026-05-20</td>
+                    <td>$680.000</td>
+                    <td><span class="badge blue">Pendiente</span></td>
+                </tr>
+                <tr>
+                    <td>#R-2839</td>
+                    <td>Ana Martínez</td>
+                    <td>Tayrona Trek</td>
+                    <td>2026-05-20</td>
+                    <td>$320.000</td>
+                    <td><span class="badge green">Confirmada</span></td>
+                </tr>
+                <tr>
+                    <td>#R-2838</td>
+                    <td>Luis Herrera</td>
+                    <td>San Andrés Pack</td>
+                    <td>2026-05-19</td>
+                    <td>$1.250.000</td>
+                    <td><span class="badge orange">Cancelada</span></td>
+                </tr>
+                <tr>
+                    <td>#R-2837</td>
+                    <td>Sofía López</td>
+                    <td>Caño Cristales</td>
+                    <td>2026-05-19</td>
+                    <td>$890.000</td>
+                    <td><span class="badge green">Confirmada</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">bookingmanager.co</div>
+</body>
+</html>
